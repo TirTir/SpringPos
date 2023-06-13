@@ -1,3 +1,4 @@
+@ -1,181 +0,0 @@
 <!DOCTYPE html>
 <html>
   <head>
@@ -55,8 +56,8 @@
           margin: 20px;
         "
       >
-        <div style="display: flex; flex-direction: column">
-          <input
+        <form action="order" style="display: flex; flex-direction: column">
+          <input type="text" name="productName" id="productName" value="${OrderedRequest.productName}"
             placeholder="상품명"
             style="
               height: 30px;
@@ -102,12 +103,12 @@
               margin: 10px;
             "
           >
-            22000원
+          	${order.productName}원
           </div>
         </div>
         <div style="display: flex; flex-direction: column; margin: 20px">
           <div>
-            <button
+            <button type="button" value="${OrderedRequest}"
               style="
                 height: 50px;
                 width: 150px;

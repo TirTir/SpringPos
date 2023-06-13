@@ -26,7 +26,7 @@ public class StatisticsController {
         if (!agree) {
             return "statistic";
         }
-        return "redirect:/statistic/period";
+        return "redirect:/period";
     }
 	
 	@PostMapping("/period/monthly")

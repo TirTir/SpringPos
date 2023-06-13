@@ -50,7 +50,7 @@
             border-right: 1px solid rgb(118, 118, 118);
           "
         >
-          <div
+          <div href="./order.jsp"
             style="
               display: flex;
               flex-direction: row;

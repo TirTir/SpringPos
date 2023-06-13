@@ -23,27 +23,13 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("/statistic")
-    public String statistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-        if (!agree) {
-            return "main";
-        }
-        return "redirect:/statistic";
-    }
-
-    @PostMapping("/order")
-    public String order(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-        if (!agree) {
-            return "main";
-        }
-        return "redirect:/order";
-    }
-    
-    @PostMapping("/inventory")
-    public String inventory(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-    	if (!agree) {
-            return "main";
-        }
-    	return "redirect:/inventory";
-    }
+	@RequestMapping(value = "/statistic", method = RequestMethod.GET)
+	public String showStatisticPage() {
+		return "statistic";
+	}
+	
+	@RequestMapping(value = "/inventory", method = RequestMethod.GET)
+	public String showInventoryPage() {
+		return "inventory";
+	}
 }

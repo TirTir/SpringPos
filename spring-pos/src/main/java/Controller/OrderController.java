@@ -23,12 +23,12 @@ public class OrderController {
 	private OrderedProductService orderedProductService;
 	@Autowired
 	private OrderService orderService;
-	
+
 	@GetMapping
-    public String showOrder(Model model) {
+    public String showOrderPage(Model model) {
         List<Orders> orderList = orderDao.selectAllOrders();
         model.addAttribute("orders", orderList);
-        return "order";
+        return "redirect:order";
     }
 	
 	@GetMapping("/addToCart")
