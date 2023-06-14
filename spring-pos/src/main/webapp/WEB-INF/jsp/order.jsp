@@ -43,6 +43,15 @@
             <td>${order.quantity}</td>
             <td></td>
           </tr>
+          <%
+          	function returnProduct(button) {
+        	    // 클릭된 버튼의 상위 <tr> 요소 찾기
+        	    var row = button.closest('tr');
+        	    // <td> 요소들을 찾아 값 가져오기
+        	    button.value = row.cells[0].innerText;
+        	    event.preventDefault();
+          }
+          %>
         </table>
       </div>
       <div
@@ -80,7 +89,7 @@
               padding: 5px;
             "
           />
-        </div>
+        </form>
         <div
           style="
             display: flex;
@@ -103,12 +112,12 @@
               margin: 10px;
             "
           >
-          	${order.productName}원
+          	${totalPrice}원
           </div>
         </div>
         <div style="display: flex; flex-direction: column; margin: 20px">
           <div>
-            <button type="button" value="${OrderedRequest}"
+            <button type="submit" value="${OrderedRequest}"
               style="
                 height: 50px;
                 width: 150px;
@@ -124,7 +133,7 @@
               "
             >
               담기</button
-            ><button
+            ><button type="button" onclick="returnProduct(this)"
               style="
                 height: 50px;
                 width: 150px;
@@ -142,7 +151,7 @@
               반품
             </button>
           </div>
-          <button
+          <button type="submit" value="order"
             style="
               height: 50px;
               width: 300px;
@@ -158,7 +167,7 @@
             "
           >
             결제하기</button
-          ><button
+          ><button type="button"
             style="
               height: 50px;
               width: 300px;
@@ -173,7 +182,7 @@
               padding: 5px;
             "
           >
-            판매 내역
+          	<a href="./product.jsp" style="text-decoration: none;">판매 내역<a/>
           </button>
         </div>
       </div>

@@ -6,6 +6,10 @@ public class Member {
 	private String password; //비밀번호
 	private String position; //직책
 	
+	public Member() {
+		
+	}
+	
 	public Member(String userName, String userId, String password, String position)
 	{
 		this.userName = userName;

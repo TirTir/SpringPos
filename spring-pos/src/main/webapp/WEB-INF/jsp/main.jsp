@@ -25,7 +25,7 @@
         <div style="color: white; font-size: 30px; margin: 10px 24px">POS</div>
         <div style="display: flex; flex-direction: row; align-items: center">
           <div style="color: white; margin: 10px">관리자님 환영합니다.</div>
-          <button
+          <button type="button" name="logout" id="logout" value="${UserAuthRequest.userId}"
             style="
               margin: 10px 24px;
               width: 100px;
@@ -50,7 +50,7 @@
             border-right: 1px solid rgb(118, 118, 118);
           "
         >
-          <div href="./order.jsp"
+          <div
             style="
               display: flex;
               flex-direction: row;
@@ -65,9 +65,9 @@
               font-size: 25px;
             "
           >
-            판매
+          	<a href="./order.jsp" style="text-decoration: none;">판매<a/>
           </div>
-          <div
+          <div href="./statistic.jsp"
             style="
               display: flex;
               flex-direction: row;
@@ -82,7 +82,7 @@
               font-size: 25px;
             "
           >
-            통계
+          	<a href="./statistic.jsp" style="text-decoration: none;">통계<a/>
           </div>
           <div
             style="
@@ -99,7 +99,7 @@
               font-size: 25px;
             "
           >
-            재고 관리
+          <a href="./inventory.jsp" style="text-decoration: none;">재고 관리<a/>
           </div>
           <div
             style="

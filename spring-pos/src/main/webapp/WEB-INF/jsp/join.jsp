@@ -79,7 +79,7 @@
             border-radius: 5px;
             padding: 5px;
           "
-        /><button type="submit"
+        /><button type="submit" value="${Member}"
           style="
             height: 40px;
             width: 300px;
@@ -92,7 +92,6 @@
             padding: 5px;
           "
         >
-          <a href="/join">
           회원가입
         </button>
       </form>

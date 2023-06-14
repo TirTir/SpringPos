@@ -37,7 +37,7 @@
           src="/img/market.png"
           style="width: 300px; height: 280px; margin: 30px 70px 0px 30px"
         />
-        <div
+        <form
           style="
             display: flex;
             flex-direction: column;
@@ -46,7 +46,7 @@
             margin: 20px;
           "
         >
-          <input
+        <input type="text" name="userId" id="userId" value="${userAuthRequest.userId}"
             placeholder="userId"
             style="
               height: 30px;
@@ -57,7 +57,7 @@
               border-radius: 5px;
               padding: 5px;
             "
-          /><input
+          /><input type="text" name="password" id="password" value="${userAuthRequest.password}"
             placeholder="password"
             style="
               height: 30px;
@@ -68,7 +68,7 @@
               border-radius: 5px;
               padding: 5px;
             "
-          /><button
+          /><button type="button" name="login" id="login" value="${userAuthRequest}
             style="
               height: 30px;
               width: 300px;
@@ -95,9 +95,9 @@
               border-radius: 5px;
             "
           >
-            회원가입
+          	<a href="./join.jsp" style="text-decoration: none;">회원가입<a/>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   </body>

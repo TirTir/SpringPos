@@ -31,13 +31,13 @@ public class OrderController {
         return "redirect:order";
     }
 	
-	@GetMapping("/addToCart")
+	@GetMapping
 	public String insert(Model model) {
 		model.addAttribute("OrderedRequest", new OrderedRequest());
         return "order";
     }
 	
-	@PostMapping("/addToCart")
+	@PostMapping
 	public String handleInsert(@ModelAttribute("OrderedRequest") OrderedRequest req, Model model){
 		try {
             long totalPrice = orderedProductService.regist(req);
@@ -49,19 +49,25 @@ public class OrderController {
 		return "redirect: /order";
 	}
 	
-	@PostMapping("/cancel")
-	public String cancel(@ModelAttribute("number") int number, Model model){
+	@GetMapping
+	public String cancel(Model model) {
+		model.addAttribute("number");
+        return "order";
+    }
+	
+	@PostMapping
+	public String handleCancel(@ModelAttribute("number") int number, Model model){
 		try {
 			orderedProductService.cancel(number);
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
         }
 		
-		return "order";
+		return "redirect: /order";
 	}
 	
 	@PostMapping("/regist")
-	public String regist(Model model){
+	public String regist(@ModelAttribute("order") String req, Model model){
 		try {
 			orderService.regist();
         } catch (Exception e) {
