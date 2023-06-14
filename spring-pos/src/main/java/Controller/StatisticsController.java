@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.StatisticsProductResponse;
 import com.example.demo.StatisticsResponse;
+import com.example.demo.UserAuthResponse;
 
 import Service.StatisticProductService;
 import Service.StatisticService;
@@ -20,6 +21,13 @@ public class StatisticsController {
 	private StatisticService statisticService;
 	@Autowired
 	private StatisticProductService statisticProductService;
+	
+	@GetMapping
+    public String showStatistic(Model model, @SessionAttribute("user") UserAuthResponse user) {
+		if(user.getPosition() == "매니저") 
+	        return "inventory";   
+        return "main";
+    }
 	
 	@PostMapping("/period")
 	public String periodStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {

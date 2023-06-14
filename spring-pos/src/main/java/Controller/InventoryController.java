@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.ProductRegisterRequest;
+import com.example.demo.UserAuthResponse;
 
-import Service.ProductService;
 import dao.ProductDao;
 import dto.Product;
 
@@ -18,14 +18,15 @@ import dto.Product;
 public class InventoryController {
 	@Autowired
 	private ProductDao productDao;
-	@Autowired
-	private ProductService productService;
 
 	@GetMapping
-    public String showInventory(Model model) {
-        List<Product> productList = productDao.selectAllProduct();
-        model.addAttribute("products", productList);
-        return "inventory";
+    public String showInventory(Model model, @SessionAttribute("user") UserAuthResponse user) {
+		if(user.getPosition() == "매니저") {
+			List<Product> productList = productDao.selectAllProduct();
+	        model.addAttribute("products", productList);
+	        return "redirect:inventory";
+		}    
+        return "main";
     }
 	
 	@PostMapping("/inventory/search")
