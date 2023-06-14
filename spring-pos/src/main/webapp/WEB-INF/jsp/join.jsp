@@ -37,7 +37,7 @@
         src="img/market.png"
         style="width: 300px; height: 280px; margin: 30px 70px 0px 30px"
       />
-      <form method="post"
+      <form action="/join" method="post" 
         style="
           display: flex;
           flex-direction: column;

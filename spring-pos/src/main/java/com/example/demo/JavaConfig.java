@@ -90,7 +90,7 @@ public class JavaConfig {
     public InventoryService inventoryService() { 
 		 return new InventoryService(productDao());
 	}
-	
+
 	@Bean
     public MainController mainController() {
         return new MainController();

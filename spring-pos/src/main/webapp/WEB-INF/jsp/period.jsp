@@ -36,30 +36,11 @@
           <td>파이썬</td>
           <td>1,250</td>
         </tr>
+        <c:forEach var="order" items="${orders}" varStatus="status">
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>${status.index+1}</td>
+          <td>${order.productName}</td>
+          <td>${order.price}</td>
         </tr>
       </table>
     </div>

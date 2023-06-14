@@ -21,14 +21,9 @@ public class MemberController {
     private MemberDao memberDao;
 	@Autowired
 	private UserAuthService userAuthService;
-    
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String showLoginPage() {
-		return "login";
-	}
 	
 	@GetMapping("/login")
-    public String login(Model model) {
+    public String showLoginPage(Model model) {
 		model.addAttribute("userAuthRequest", new UserAuthRequest());
         return "login";
     }
@@ -47,13 +42,8 @@ public class MemberController {
         }
 	}
 	
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String showJoinPage() {
-		return "join";
-	}
-	
 	@GetMapping("/join")
-    public String join(Model model) {
+    public String showJoinPage(Model model) {
 		model.addAttribute("Member", new Member());
         return "join";
     }

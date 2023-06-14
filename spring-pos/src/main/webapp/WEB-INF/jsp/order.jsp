@@ -65,7 +65,7 @@
           margin: 20px;
         "
       >
-        <form action="order" style="display: flex; flex-direction: column">
+        <form action="/order" style="display: flex; flex-direction: column">
           <input type="text" name="productName" id="productName" value="${OrderedRequest.productName}"
             placeholder="상품명"
             style="
@@ -151,7 +151,7 @@
               반품
             </button>
           </div>
-          <button type="submit" value="order"
+          <button type="button" onClick="location.href='./regist'"
             style="
               height: 50px;
               width: 300px;

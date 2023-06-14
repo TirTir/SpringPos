@@ -25,7 +25,7 @@
         <div style="color: white; font-size: 30px; margin: 10px 24px">POS</div>
         <div style="display: flex; flex-direction: row; align-items: center">
           <div style="color: white; margin: 10px">관리자님 환영합니다.</div>
-          <button type="button" name="logout" id="logout" value="${UserAuthRequest.userId}"
+          <button type="button" name="logout" id="logout" onClick="location.href='./logout'"
             style="
               margin: 10px 24px;
               width: 100px;
