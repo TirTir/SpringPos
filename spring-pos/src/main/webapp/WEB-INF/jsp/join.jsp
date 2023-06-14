@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>회원가입</title>
+    <title>Join</title>
   </head>
-  <body>
+  <body style="margin:0">
   <div>
     <div
       style="
@@ -68,7 +68,7 @@
             border-radius: 5px;
             padding: 5px;
           "
-        /><input type="text" name="userPassword" value="${Member.userPassword}"
+        /><input type="password" name="userPassword" value="${Member.userPassword}"
           placeholder="password"
           style="
             height: 30px;
@@ -79,7 +79,7 @@
             border-radius: 5px;
             padding: 5px;
           "
-        /><button type="submit" value="${Member}"
+        /><button type="submit" value="member"
           style="
             height: 40px;
             width: 300px;

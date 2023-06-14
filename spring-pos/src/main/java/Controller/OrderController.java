@@ -24,7 +24,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
-	@GetMapping
+	@GetMapping("/order")
     public String showOrderPage(Model model) {
         List<Orders> orderList = orderDao.selectAllOrders();
         model.addAttribute("orders", orderList);

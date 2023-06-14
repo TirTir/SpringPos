@@ -12,9 +12,6 @@ import Service.UserAuthService;
 import dao.MemberDao;
 import dto.Member;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Controller
 public class MemberController {
 	@Autowired
@@ -24,33 +21,50 @@ public class MemberController {
 	
 	@GetMapping("/login")
     public String showLoginPage(Model model) {
-		model.addAttribute("userAuthRequest", new UserAuthRequest());
         return "login";
     }
 	
 	@PostMapping("/login")
-	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, Model model, HttpServletRequest request){
+	public String Login(@RequestParam(value="agree", defaultValue="false") Boolean agree, Model model){
+		if(!agree) {
+			return "login";
+		}
+		model.addAttribute("userAuthRequest", new UserAuthRequest());
+		return "/process";
+	}
+	
+	@PostMapping("/login/process")
+	public String handleLogin(UserAuthRequest req, Model model){
 		try {
 			UserAuthResponse res = userAuthService.login(req);
-			
-            HttpSession session = request.getSession();
-            session.setAttribute("user", res);
-            return "main";
+			model.addAttribute("userAuthResponse", res);
+	        return "main";
         } catch (Exception e) {
-            model.addAttribute("errorMessage", e.getMessage());
             return "login";
         }
 	}
 	
 	@GetMapping("/join")
     public String showJoinPage(Model model) {
-		model.addAttribute("Member", new Member());
         return "join";
     }
 	
 	@PostMapping("/join")
+	public String Join(@RequestParam(value="agree", defaultValue="false") Boolean agree, Model model){
+		if(!agree) {
+			return "join";
+		}
+		model.addAttribute("member", new Member());
+		return "/process";
+	}
+	
+	@PostMapping("/join/process")
 	public String handleJoin(@ModelAttribute("member") Member member, Model model){
-		memberDao.insert(member);
-		return "login";
-        } 
+		try {
+			memberDao.insert(member);
+	        return "main";
+        } catch (Exception e) {
+            return "join";
+        }
+	}
 }

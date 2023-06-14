@@ -23,8 +23,7 @@ public class UserAuthService {
 			throw new Exception("Different Password");
 		}
 		
-		UserAuthResponse response = new UserAuthResponse(member.getUserId(), member.getUserName(), member.getPosition());
-        
+		UserAuthResponse response = new UserAuthResponse(member.getUserId(), member.getUserName());       
 		return response;
 	}
 	

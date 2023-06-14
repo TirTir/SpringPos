@@ -5,11 +5,9 @@ public class UserAuthResponse {
 	private String userName;
 	private String position;
 	
-	public UserAuthResponse(String userId, String userName, String position) {
-		super();
+	public UserAuthResponse(String userId, String userName) {
 		this.userId = userId;
 		this.userName = userName;
-		this.position = position;
 	}
 	
 	public String getUserId() {

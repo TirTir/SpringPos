@@ -20,8 +20,8 @@ public class InventoryController {
 	private ProductDao productDao;
 
 	@GetMapping
-    public String showInventory(Model model, @SessionAttribute("user") UserAuthResponse user) {
-		if(user.getPosition() == "매니저") {
+    public String showInventory(Model model) {
+		if(member.getPosition() == "매니저") {
 			List<Product> productList = productDao.selectAllProduct();
 	        model.addAttribute("products", productList);
 	        return "inventory";

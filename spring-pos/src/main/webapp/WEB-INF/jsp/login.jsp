@@ -8,7 +8,7 @@
 
     <title>Login</title>
   </head>
-  <body>
+  <body style="margin:0">
     <div>
       <div
         style="
@@ -37,7 +37,7 @@
           src="/img/market.png"
           style="width: 300px; height: 280px; margin: 30px 70px 0px 30px"
         />
-        <form
+        <form action="/login" method="post" 
           style="
             display: flex;
             flex-direction: column;
@@ -46,7 +46,11 @@
             margin: 20px;
           "
         >
-        <input type="text" name="userId" id="userId" value="${userAuthRequest.userId}"
+          <input
+            type="text"
+            name="userId"
+            id="userId"
+            value="${userAuthRequest.userId}"
             placeholder="userId"
             style="
               height: 30px;
@@ -57,7 +61,11 @@
               border-radius: 5px;
               padding: 5px;
             "
-          /><input type="text" name="password" id="password" value="${userAuthRequest.password}"
+          /><input
+            type="password"
+            name="password"
+            id="password"
+            value="${userAuthRequest.password}"
             placeholder="password"
             style="
               height: 30px;
@@ -68,7 +76,11 @@
               border-radius: 5px;
               padding: 5px;
             "
-          /><button type="button" name="login" id="login" value="${userAuthRequest}
+          /><button
+            type="submit"
+            name="login"
+            id="login"
+            value="UserAuthRequest"
             style="
               height: 30px;
               width: 300px;
@@ -82,7 +94,8 @@
             "
           >
             로그인</button
-          ><button
+          ><button type="button"
+            onclick="location.href='/join'"
             style="
               height: 30px;
               width: 300px;
@@ -94,11 +107,11 @@
               border: none;
               border-radius: 5px;
             "
-          >
-          	<a href="./join.jsp" style="text-decoration: none;">회원가입<a/>
+          >회원가입
           </button>
         </form>
       </div>
     </div>
   </body>
 </html>
+

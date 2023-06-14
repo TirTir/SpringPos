@@ -34,10 +34,10 @@ public class MemberDao {
 						pstmt.setString(1,  member.getUserName());
 						pstmt.setString(2,  member.getUserId());
 						pstmt.setString(3,  member.getPassword());
-						pstmt.setString(4,  member.getPosition());
 						return pstmt;
 						}
 					}, keyHolder);
+		member.setPosition("직원");
 		}
 	
 	public Member selectByUserId(String userId) { //회원정보 검색
