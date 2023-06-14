@@ -24,7 +24,7 @@ public class InventoryController {
 		if(user.getPosition() == "매니저") {
 			List<Product> productList = productDao.selectAllProduct();
 	        model.addAttribute("products", productList);
-	        return "redirect:inventory";
+	        return "inventory";
 		}    
         return "main";
     }
@@ -38,7 +38,7 @@ public class InventoryController {
             model.addAttribute("errorMessage", e.getMessage());
         }
 		
-		return "inventory";
+		return "redirect:inventory";
 	}
 	
 	@GetMapping("/inventory/product")
@@ -49,14 +49,6 @@ public class InventoryController {
 	
     @RequestMapping(value = "/main-inventory", method = RequestMethod.GET)
     public String showInventoryPage() {
-        return "inventory";
-    }
-
-    @PostMapping("/main-inventory")
-    public String inventory(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-        if (!agree) {
-            return "main";
-        }
-        return "redirect:/main-inventory";
+        return "redirect:inventory";
     }
 }

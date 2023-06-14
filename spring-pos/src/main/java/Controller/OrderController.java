@@ -28,13 +28,13 @@ public class OrderController {
     public String showOrderPage(Model model) {
         List<Orders> orderList = orderDao.selectAllOrders();
         model.addAttribute("orders", orderList);
-        return "redirect:order";
+        return "order";
     }
 	
 	@GetMapping("/addToCard")
 	public String insert(Model model) {
 		model.addAttribute("OrderedRequest", new OrderedRequest());
-        return "order";
+        return "redirect:order";
     }
 	
 	@PostMapping("/addToCard")

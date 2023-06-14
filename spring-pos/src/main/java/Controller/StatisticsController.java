@@ -23,9 +23,9 @@ public class StatisticsController {
 	private StatisticProductService statisticProductService;
 	
 	@GetMapping
-    public String showStatistic(Model model, @SessionAttribute("user") UserAuthResponse user) {
+    public String showStatisticPage(Model model, @SessionAttribute("user") UserAuthResponse user) {
 		if(user.getPosition() == "매니저") 
-	        return "inventory";   
+	        return "statistic";   
         return "main";
     }
 	

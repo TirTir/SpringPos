@@ -37,21 +37,14 @@
           <th style="width: 10%">비고</th>
           <c:forEach var="order" items="${orders}" varStatus="status">
           <tr>
-            <td>${status.index+1}</td>
-            <td>${order.productName}</td>
-            <td>${order.price}</td>
-            <td>${order.quantity}</td>
-            <td></td>
+          <a href="#" onClick="orderContent(<:out value="${order.num}"/>)">
+          <td>${status.index+1}</td>c
+          <td>${order.productName}</td>
+          <td>${order.price}</td>
+          <td>${order.quantity}</td>
+          <td></td>
+          </a>
           </tr>
-          <%
-          	function returnProduct(button) {
-        	    // 클릭된 버튼의 상위 <tr> 요소 찾기
-        	    var row = button.closest('tr');
-        	    // <td> 요소들을 찾아 값 가져오기
-        	    button.value = row.cells[0].innerText;
-        	    event.preventDefault();
-          }
-          %>
         </table>
       </div>
       <div
@@ -187,5 +180,14 @@
         </div>
       </div>
     </div>
+    <script>
+	function orderContent(button){
+		// 클릭된 버튼의 상위 <tr> 요소 찾기
+	    var row = button.closest('tr');
+	    // <td> 요소들을 찾아 값 가져오기
+	    button.value = row.cells[0].innerText;
+	    event.preventDefault();
+	}
+</script>
   </body>
 </html>
