@@ -3,6 +3,7 @@ package Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,39 +12,37 @@ import com.example.demo.UserRegisterRequest;
 
 import Service.UserAuthService;
 import dto.Member;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MemberController {
 	@Autowired
 	private UserAuthService userAuthService;	
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public ModelAndView login(ModelAndView mav) {
-		mav.setViewName("login");
-		return mav;
+	@RequestMapping("/")
+	public String root() throws Exception {
+		return "redirect:login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView handleLogin(@RequestParam UserAuthRequest req, ModelAndView mav) {
-		
+	@PostMapping("/login")
+	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, Model model) {
+		String page = "login";
 		try {
 			Member member = userAuthService.login(req);
-			mav.addObject("User", member);
-			mav.setViewName("main");
+			page = "main";
 		} catch (Exception e) {
-			mav.addObject("msg", e);
-			mav.setViewName("login");
+			model.addAttribute("msg", e);
 		}		
-		return mav;
+		return page;
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
+	@GetMapping("/join")
 	public ModelAndView join(ModelAndView mav) {
 		mav.setViewName("join");
 		return mav;
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@PostMapping("/join")
 	public ModelAndView handleJoin(@RequestParam UserRegisterRequest req, ModelAndView mav) throws Exception {
 		userAuthService.join(req);
 		mav.setViewName("login");

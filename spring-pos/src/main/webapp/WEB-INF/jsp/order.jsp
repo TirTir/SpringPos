@@ -1,4 +1,5 @@
-@ -1,181 +0,0 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,7 +10,6 @@
     <title>Order</title>
   </head>
   <body>
-  <jsp:include page="main.jsp" />	
     <div
       style="
         display: flex;
@@ -29,21 +29,23 @@
           margin: 20px;
         "
       >
-        <table style="height: 100%; width: 100%">
+        <table action="main/order" style="height: 100%; width: 100%">
           <th style="width: 5%">No</th>
           <th style="width: 40%">상품명</th>
           <th style="width: 15%">단가</th>
           <th style="width: 10%">수량</th>
           <th style="width: 10%">비고</th>
-          <c:forEach var="order" items="${orders}" varStatus="status">
-          <tr>
-          <a href="#" onClick="orderContent(<:out value="${order.num}"/>)">
-          <td>${status.index+1}</td>c
-          <td>${order.productName}</td>
-          <td>${order.price}</td>
-          <td>${order.quantity}</td>
-          <td></td>
-          </a>
+          <c:forEach
+            var="order"
+            items="${orders}"
+            varStatus="status"
+          ></c:forEach>
+          <tr class="click">
+            <td>${status.index+1}</td>
+            <td id="${status.index+1}">${order.productName}</td>
+            <td>${order.price}</td>
+            <td>${order.quantity}</td>
+            <td></td>
           </tr>
         </table>
       </div>
@@ -58,8 +60,15 @@
           margin: 20px;
         "
       >
-        <form action="/order" style="display: flex; flex-direction: column">
-          <input type="text" name="productName" id="productName" value="${OrderedRequest.productName}"
+        <form
+          action="main/order"
+          method="post"
+          style="display: flex; flex-direction: column"
+        >
+          <input
+            type="text"
+            name="productName"
+            value="${OrderedRequest.productName}"
             placeholder="상품명"
             style="
               height: 30px;
@@ -71,6 +80,9 @@
               padding: 5px;
             "
           /><input
+            type="text"
+            name="count"
+            value="${OrderedRequest.count}"
             placeholder="수량"
             style="
               height: 30px;
@@ -105,12 +117,14 @@
               margin: 10px;
             "
           >
-          	${totalPrice}원
+            ${totalPrice}원
           </div>
         </div>
         <div style="display: flex; flex-direction: column; margin: 20px">
           <div>
-            <button type="submit" value="${OrderedRequest}"
+            <button
+              type="submit"
+              value="${OrderedRequest}"
               style="
                 height: 50px;
                 width: 150px;
@@ -126,7 +140,9 @@
               "
             >
               담기</button
-            ><button type="button" onclick="returnProduct(this)"
+            ><button
+              type="button"
+              onclick="javascript:onCancel()"
               style="
                 height: 50px;
                 width: 150px;
@@ -144,7 +160,9 @@
               반품
             </button>
           </div>
-          <button type="button" onClick="location.href='./regist'"
+          <button
+            type="button"
+            onClick="location.href='./regist'"
             style="
               height: 50px;
               width: 300px;
@@ -159,8 +177,11 @@
               padding: 5px;
             "
           >
-            결제하기</button
-          ><button type="button"
+            결제하기
+          </button>
+          <button
+            type="button"
+            onclick="location.href='product.jsp'"
             style="
               height: 50px;
               width: 300px;
@@ -175,19 +196,21 @@
               padding: 5px;
             "
           >
-          	<a href="./product.jsp" style="text-decoration: none;">판매 내역<a/>
+            판매 내역
           </button>
         </div>
       </div>
     </div>
     <script>
-	function orderContent(button){
-		// 클릭된 버튼의 상위 <tr> 요소 찾기
-	    var row = button.closest('tr');
-	    // <td> 요소들을 찾아 값 가져오기
-	    button.value = row.cells[0].innerText;
-	    event.preventDefault();
-	}
-</script>
+      var trNum = 0;
+      $(".click").bind("click", function () {
+        var trNum = $(this).closest("tr").prevAll().length;
+        console.log(trNum);
+      });
+      function onCancel() {
+          location.href = "main/order/cancel/${trNum}";
+        }
+    </script>
   </body>
 </html>
+

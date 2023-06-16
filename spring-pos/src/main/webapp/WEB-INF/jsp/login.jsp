@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,7 +38,7 @@
           src="/img/market.png"
           style="width: 300px; height: 280px; margin: 30px 70px 0px 30px"
         />
-        <form action="/login" method="post" 
+        <form action="/" method="post" 
           style="
             display: flex;
             flex-direction: column;

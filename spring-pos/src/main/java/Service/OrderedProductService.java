@@ -17,7 +17,6 @@ public class OrderedProductService {
 	private OrderedProductDao orderedProductDao;
 	
 	public OrderedProductService(ProductDao productDao, OrderDao orderDao, OrderedProductDao orderedProductDao) {
-		super();
 		this.productDao = productDao;
 		this.orderDao = orderDao;
 		this.orderedProductDao = orderedProductDao;
@@ -44,7 +43,7 @@ public class OrderedProductService {
 		return orderedProductDao.insert(newProduct);
 	}
 	
-	public void cancel(int number)  throws Exception { //취소 기능 구현
+	public void cancel(int number) throws Exception { //반품 기능 구현
 		OrderedProduct order = orderedProductDao.selectByNumber(number);
 		if(order != null)
 			throw new Exception("Ordered Existence Exception");

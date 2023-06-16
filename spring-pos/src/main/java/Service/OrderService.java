@@ -61,7 +61,7 @@ public class OrderService {
 	    }
 	}
 	
-	public List<Orders> orderHistory(LocalDateTime orderDateTime){ //판매 내역
+	public List<Orders> orderHistory(){ //판매 내역
 		LocalDate currentDateTime = LocalDate.now().minusDays(1);
 		LocalDateTime previousDayStart = currentDateTime.atStartOfDay();
 		LocalDateTime previousDayEnd = currentDateTime.atTime(23, 59, 59);

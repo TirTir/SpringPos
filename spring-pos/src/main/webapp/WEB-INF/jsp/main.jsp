@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +18,20 @@
         	<jsp:include page="sidemenu.jsp" />
         </div>
         <div class="content">
-          <jsp:include page="order.jsp" />
+	        <div
+	        style="
+	          display: flex;
+	          justify-content: center;
+	          align-items: center;
+	          width: 100%;
+	        "
+	      >
+	        <img
+	          alt="Market_IMG"
+	          src="img/market.png"
+	          style="width: 200px; height: 180px; margin: 30px 70px 0px 30px"
+	        />
+	      </div>
         </div>
       </div>
     </div>
