@@ -9,7 +9,6 @@ public class StatisticsProductResponse {
 	
 	
 	public StatisticsProductResponse(int productId, String productName, long price, int count, long totalPrice) {
-		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;

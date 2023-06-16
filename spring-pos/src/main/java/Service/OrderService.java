@@ -1,8 +1,11 @@
 package Service;
 
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import dao.OrderDao;
 import dao.OrderedProductDao;
@@ -10,6 +13,7 @@ import dao.ProductDao;
 import dto.OrderedProduct;
 import dto.Orders;
 
+@Service
 public class OrderService { 
 	private ProductDao productDao;
     private OrderDao orderDao;

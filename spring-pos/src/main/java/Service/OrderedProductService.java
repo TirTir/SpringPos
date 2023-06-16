@@ -1,5 +1,7 @@
 package Service;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.OrderedRequest;
 
 import dao.OrderDao;
@@ -8,6 +10,7 @@ import dao.ProductDao;
 import dto.OrderedProduct;
 import dto.Product;
 
+@Service
 public class OrderedProductService {
 	private ProductDao productDao;
 	private OrderDao orderDao;

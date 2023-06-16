@@ -1,70 +1,52 @@
 package Controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.UserAuthRequest;
-import com.example.demo.UserAuthResponse;
+import com.example.demo.UserRegisterRequest;
 
 import Service.UserAuthService;
-import dao.MemberDao;
 import dto.Member;
 
 @Controller
 public class MemberController {
 	@Autowired
-    private MemberDao memberDao;
-	@Autowired
-	private UserAuthService userAuthService;
+	private UserAuthService userAuthService;	
 	
-	@GetMapping("/login")
-    public String showLoginPage(Model model) {
-        return "login";
-    }
-	
-	@PostMapping("/login")
-	public String Login(@RequestParam(value="agree", defaultValue="false") Boolean agree, Model model){
-		if(!agree) {
-			return "login";
-		}
-		model.addAttribute("userAuthRequest", new UserAuthRequest());
-		return "/process";
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView login(ModelAndView mav) {
+		mav.setViewName("login");
+		return mav;
 	}
 	
-	@PostMapping("/login/process")
-	public String handleLogin(UserAuthRequest req, Model model){
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ModelAndView handleLogin(@RequestParam UserAuthRequest req, ModelAndView mav) {
+		
 		try {
-			UserAuthResponse res = userAuthService.login(req);
-			model.addAttribute("userAuthResponse", res);
-	        return "main";
-        } catch (Exception e) {
-            return "login";
-        }
+			Member member = userAuthService.login(req);
+			mav.addObject("User", member);
+			mav.setViewName("main");
+		} catch (Exception e) {
+			mav.addObject("msg", e);
+			mav.setViewName("login");
+		}		
+		return mav;
 	}
 	
-	@GetMapping("/join")
-    public String showJoinPage(Model model) {
-        return "join";
-    }
-	
-	@PostMapping("/join")
-	public String Join(@RequestParam(value="agree", defaultValue="false") Boolean agree, Model model){
-		if(!agree) {
-			return "join";
-		}
-		model.addAttribute("member", new Member());
-		return "/process";
+	@RequestMapping(value="/join", method=RequestMethod.GET)
+	public ModelAndView join(ModelAndView mav) {
+		mav.setViewName("join");
+		return mav;
 	}
 	
-	@PostMapping("/join/process")
-	public String handleJoin(@ModelAttribute("member") Member member, Model model){
-		try {
-			memberDao.insert(member);
-	        return "main";
-        } catch (Exception e) {
-            return "join";
-        }
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public ModelAndView handleJoin(@RequestParam UserRegisterRequest req, ModelAndView mav) throws Exception {
+		userAuthService.join(req);
+		mav.setViewName("login");
+		return mav;
 	}
 }

@@ -2,11 +2,14 @@ package Service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.ProductRegisterRequest;
 
 import dao.ProductDao;
 import dto.Product;
 
+@Service
 public class ProductService {
 	private ProductDao productDao;
 	

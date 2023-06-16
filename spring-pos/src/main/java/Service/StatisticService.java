@@ -1,15 +1,19 @@
 package Service;
 
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.example.demo.StatisticsResponse;
 
 import dao.OrderDao;
 import dto.Orders;
 
+@Service
 public class StatisticService {
 	 private OrderDao orderDao;
 

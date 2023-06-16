@@ -26,7 +26,7 @@
           type="button"
           name="logout"
           id="logout"
-          onClick="location.href='./logout'"
+          onClick="location.href='/logout'"
           style="
             margin: 10px 24px;
             width: 100px;

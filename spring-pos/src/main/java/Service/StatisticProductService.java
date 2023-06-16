@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.StatisticsProductResponse;
 
 import dao.OrderDao;
@@ -15,6 +17,7 @@ import dto.OrderedProduct;
 import dto.Orders;
 import dto.Product;
 
+@Service
 public class StatisticProductService {
 	private OrderDao orderDao;
 	private ProductDao productDao;

@@ -3,11 +3,6 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import Controller.InventoryController;
-import Controller.MainController;
-import Controller.MemberController;
-import Controller.OrderController;
-import Controller.StatisticsController;
 import Service.InventoryService;
 import Service.OrderService;
 import Service.OrderedProductService;
@@ -90,29 +85,4 @@ public class JavaConfig {
     public InventoryService inventoryService() { 
 		 return new InventoryService(productDao());
 	}
-
-	@Bean
-    public MainController mainController() {
-        return new MainController();
-    }
-	
-	@Bean
-    public MemberController memberController() {
-        return new MemberController();
-    }
-	
-	@Bean
-    public OrderController orderController() {
-        return new OrderController();
-    }
-	
-	@Bean
-    public StatisticsController statisticsController() {
-        return new StatisticsController();
-    }
-	
-	@Bean
-    public InventoryController inventoryController() {
-        return new InventoryController();
-    }
 }
