@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
+	//View
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public ModelAndView main(ModelAndView mav) {
 		mav.setViewName("main");

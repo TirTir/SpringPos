@@ -61,7 +61,7 @@ public class OrderController {
 	
 	//결제하기
 	@GetMapping("/main/order/regist")
-	public String cancel(Model model) {
+	public String regist(Model model) {
 		try {
 			orderService.regist();
 		} catch (Exception e) {

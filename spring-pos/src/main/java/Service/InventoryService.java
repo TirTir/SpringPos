@@ -1,5 +1,6 @@
 package Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +16,12 @@ public class InventoryService {
         this.productDao = productDao;
     }
     
-    public List<Product> getAllProducts() {
+	public void regist(Product product) throws Exception{ //상품 등록
+		Product newProduct = new Product(product.getProductName(), product.getPrice(), product.getTotalCount(), LocalDateTime.now());
+		productDao.insert(newProduct);
+	}
+	
+    public List<Product> getAllProducts() { //전체 상품 조회
         return productDao.selectAllProduct();
     }
 }

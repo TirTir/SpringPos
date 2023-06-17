@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import Service.InventoryService;
 import Service.OrderService;
 import dao.OrderDao;
+import dao.ProductDao;
 import dto.Orders;
+import dto.Product;
 
 @Controller
 public class InventoryController {
@@ -17,6 +20,10 @@ public class InventoryController {
 	private OrderService orderService;
 	@Autowired
 	private OrderDao oerderDao;
+	@Autowired
+	private InventoryService inventoryService;
+	@Autowired
+	private ProductDao productDao;
 	
 	//판매 내역
 	@GetMapping("/main/inventory/ordered")
@@ -39,5 +46,26 @@ public class InventoryController {
 	public String delete(@PathVariable ("orderId") int orderId, Model model) {
 		oerderDao.deleteOrder(orderId);
 		return("redirect:/main/inventory/ordered");
+	}
+	
+	//View
+	@RequestMapping("/main/inventory")
+	public String inventory(Model model) {
+		List<Product> products = inventoryService.getAllProducts();
+		model.addAttribute(products);
+		return("/main/inventory");
+	}
+	
+	@PostMapping("/main/inventory/regist")
+	public String handleInventory(@ModelAttribute("product") Product product, Model model) throws Exception {
+		inventoryService.regist(product);
+		return("redirect:/main/inventory");
+	}
+	
+	@PostMapping("/main/inventory/search")
+	public String search(@ModelAttribute("productName") String productName, Model model) {
+		Product product = productDao.selectByProductName(productName);
+		model.addAttribute(product);
+		return("redirect:/main/inventory");
 	}
 }

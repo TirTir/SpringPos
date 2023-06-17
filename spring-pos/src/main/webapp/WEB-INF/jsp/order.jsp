@@ -148,7 +148,7 @@
                   담기</button
                 ><button
                   type="button"
-                  onclick="javascript:onCancel()"
+                  onclick="onCancel()"
                   style="
                     height: 50px;
                     width: 150px;
