@@ -29,17 +29,13 @@
           margin: 20px;
         "
       >
-        <table action="main/order" style="height: 100%; width: 100%">
+        <table style="height: 100%; width: 100%">
           <th style="width: 5%">No</th>
           <th style="width: 40%">상품명</th>
           <th style="width: 15%">단가</th>
           <th style="width: 10%">수량</th>
           <th style="width: 10%">비고</th>
-          <c:forEach
-            var="order"
-            items="${orders}"
-            varStatus="status"
-          ></c:forEach>
+          <c:forEach var="order" items="${orders}" varStatus="status"></c:forEach>
           <tr class="click">
             <td>${status.index+1}</td>
             <td id="${status.index+1}">${order.productName}</td>
@@ -181,7 +177,7 @@
           </button>
           <button
             type="button"
-            onclick="location.href='product.jsp'"
+            onclick="location.href='../inventory/orered'"
             style="
               height: 50px;
               width: 300px;
@@ -208,7 +204,7 @@
         console.log(trNum);
       });
       function onCancel() {
-          location.href = "main/order/cancel/${trNum}";
+          location.href = "./cancel/${trNum}";
         }
     </script>
   </body>

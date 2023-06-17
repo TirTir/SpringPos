@@ -14,7 +14,7 @@ import Service.StatisticProductService;
 import Service.StatisticService;
 
 @Controller
-@RequestMapping("/statistic")
+@RequestMapping("/manager/statistic")
 public class StatisticsController {
 //	@Autowired
 //	private StatisticService statisticService;

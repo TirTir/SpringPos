@@ -71,6 +71,12 @@ public class OrderDao {
 
 	    return result;
 	}
+	
+	public void deleteOrder(int orderId) {
+		String sql = "DELETE FROM Orders WHERE orderId = ?";
+		
+		jdbcTemplate.update(sql, orderId);
+	}
 	private Orders mapOrder(ResultSet rs) throws SQLException {
 	    int orderId = rs.getInt("orderId");
 	    LocalDateTime orderDateTime = rs.getTimestamp("orderDateTime").toLocalDateTime();

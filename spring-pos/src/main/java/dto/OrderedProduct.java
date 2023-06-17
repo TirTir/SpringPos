@@ -18,11 +18,9 @@ public class OrderedProduct {
 		return number;
 	}
 
-
 	public void setNumber(int number) {
 		this.number = number;
 	}
-
 
 	public int getOrderId() {
 		return orderId;

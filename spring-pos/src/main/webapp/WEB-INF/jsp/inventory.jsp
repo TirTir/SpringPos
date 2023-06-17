@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>product</title>
+    <title>inventory</title>
   </head>
   <body
     style="
@@ -33,13 +33,7 @@
         <th style="width: 15%">단가</th>
         <th style="width: 10%">수량</th>
         <th style="width: 15%">입고 날짜</th>
-        <tr>
-          <td>1</td>
-          <td>파이썬</td>
-          <td>1,250</td>
-          <td>2</td>
-          <td></td>
-        </tr>
+        <c:forEachvar="order" items="${orders}" varStatus="status"></c:forEach>
         <tr>
           <td></td>
           <td></td>
