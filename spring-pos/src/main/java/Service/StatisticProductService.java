@@ -35,7 +35,6 @@ public class StatisticProductService {
 	    List<Orders> orders = orderDao.selectAllOrders();
 	    Map<Integer, Integer> productCountMap = new HashMap<>();
 
-	    // Count the total quantity for each product
 	    for (Orders order : orders) {
 	        List<OrderedProduct> orderedProducts = orderedProductDao.selectByOrderId(order.getOrderId());
 	        for (OrderedProduct orderedProduct : orderedProducts) {
@@ -45,7 +44,6 @@ public class StatisticProductService {
 	        }
 	    }
 
-	    // Create StatisticsProductResponse objects for each product
 	    for (Map.Entry<Integer, Integer> entry : productCountMap.entrySet()) {
 	        int productId = entry.getKey();
 	        int count = entry.getValue();

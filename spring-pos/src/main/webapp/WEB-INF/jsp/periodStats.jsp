@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>period</title>
+    <title>periodStats</title>
   </head>
   <body style="margin: 0">
     <jsp:include page="menu.jsp" />
@@ -20,23 +20,32 @@
           style="
             display: flex;
             flex-direction: row;
-            align-items: center;
             width: 100%;
+            align-items: center;
           "
         >
           <div
             style="
               display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 100%;
+              width: 800px;
+              height: 85%;
+              border-radius: 5px;
+              background-color: rgb(248, 248, 248);
+              padding: 15px;
+              margin: 20px;
             "
           >
-            <img
-              alt="Market_IMG"
-              src="img/market.png"
-              style="width: 200px; height: 180px; margin: 30px 70px 0px 30px"
-            />
+            <table style="height: 100%; width: 100%">
+              <th style="width: 20%">날짜</th>
+              <th style="width: 10%">건</th>
+              <th style="width: 10%">매출</th>
+              <c:forEach var="statistic" items="${statistic}"></c:forEach>
+    	      <tr>
+    	        <td>${statistic.orderDateTime}</td>
+    	        <td>${statistic.totalNumber}</td>
+    	        <td>${statistic.tatalPrice}</td>
+    	      </tr>
+            </table>
           </div>
           <div
             style="
@@ -50,8 +59,8 @@
               height: 500px;
             "
           >
-            <div style="display: flex; flex-direction: column; margin: 40px">
-              <button type="button" onclick="onPeriod('monthly)"
+            <div style="display: flex; flex-direction: column; margin: 20px">
+              <button type="button" onclick="onPeriod('monthly')"
                 style="
                   height: 100px;
                   width: 300px;
@@ -82,8 +91,8 @@
                   padding: 5px;
                 "
               >
-                주간 집계</button
-              ><button type="button" onclick="onPeriod('weekly')"
+                주간 집계</button 
+              ><button type="button" onclick="onPeriod('daily')"
                 style="
                   height: 100px;
                   width: 300px;
@@ -106,10 +115,10 @@
       </div>
     </div>
     <script>
-	    function onPeriod(period) {
-	        location.href = "./period/${period}";
-	        }
-    </script>
+    function onPeriod(period) {
+        location.href = "/${period}";
+        }
+</script>
   </body>
 </html>
 

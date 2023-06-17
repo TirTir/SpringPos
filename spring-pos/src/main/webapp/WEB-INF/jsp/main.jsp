@@ -18,7 +18,7 @@
         	<jsp:include page="sidemenu.jsp" />
         </div>
         <div class="content">
-	        <div
+	    	<div
 	        style="
 	          display: flex;
 	          justify-content: center;

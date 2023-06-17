@@ -70,8 +70,4 @@ public class OrderService {
 		
 		return orders;
 	}
-	
-	public void delete(int orderId) throws Exception{
-		orderDao.deleteOrder(orderId);
-	}
 }

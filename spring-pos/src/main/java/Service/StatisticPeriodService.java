@@ -3,6 +3,7 @@ package Service;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -14,16 +15,16 @@ import dao.OrderDao;
 import dto.Orders;
 
 @Service
-public class StatisticService {
+public class StatisticPeriodService {
 	 private OrderDao orderDao;
 
-	 public StatisticService(OrderDao orderDao) {
+	 public StatisticPeriodService(OrderDao orderDao) {
 		 this.orderDao = orderDao;
 	 }
 	 
-	 public StatisticsResponse monthlyOrderStatistics() { //월별집계
+	 public StatisticsResponse getMonthlyOrderStatistics() { //월별집계
 		 	YearMonth currentMonth = YearMonth.now();
-	        YearMonth previousMonth = currentMonth.minusMonths(1);
+	        YearMonth previousMonth = YearMonth.of(currentMonth.getYear(), Month.JANUARY); // 해당 년도의 첫째 달
 
 	        List<Orders> orders = orderDao.selectByOrderDateTime(previousMonth.atDay(1).atStartOfDay(), currentMonth.atEndOfMonth().atTime(23, 59, 59));
 
@@ -34,7 +35,7 @@ public class StatisticService {
 	        return response;
 	    }
 
-	    public StatisticsResponse weeklyOrderStatistics() {//주간집계
+	    public StatisticsResponse getWeeklyOrderStatistics() {//주간집계
 	        LocalDate currentDate = LocalDate.now();
 	        LocalDate previousWeekStart = currentDate.minusWeeks(1).with(java.time.DayOfWeek.MONDAY);
 	        LocalDate previousWeekEnd = currentDate.minusWeeks(1).with(java.time.DayOfWeek.SUNDAY);
@@ -48,7 +49,7 @@ public class StatisticService {
 	        return response;
 	    }
 
-	    public StatisticsResponse dailyOrderStatistics() {//일별집계
+	    public StatisticsResponse getDailyOrderStatistics() {//일별집계
 	        LocalDateTime currentDateTime = LocalDateTime.now();
 	        LocalDateTime previousDayStart = currentDateTime.minusDays(1).withHour(0).withMinute(0).withSecond(0);
 	        LocalDateTime previousDayEnd = currentDateTime.minusDays(1).withHour(23).withMinute(59).withSecond(59);

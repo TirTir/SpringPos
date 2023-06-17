@@ -10,75 +10,62 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.StatisticsProductResponse;
 import com.example.demo.StatisticsResponse;
 
+import Service.StatisticPeriodService;
 import Service.StatisticProductService;
-import Service.StatisticService;
 
 @Controller
-@RequestMapping("/manager/statistic")
 public class StatisticsController {
-//	@Autowired
-//	private StatisticService statisticService;
-//	@Autowired
-//	private StatisticProductService statisticProductService;
-//	
-//	@GetMapping
-//    public String showStatisticPage(Model model) {
-//	    return "statistic";   
-//    }
-//	
-//	@PostMapping("/period")
-//	public String periodStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-//        if (!agree) {
-//            return "statistic";
-//        }
-//        return "redirect:/period";
-//    }
-//	
-//	@PostMapping("/period/monthly")
-//	public String monthlyStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-//		try {
-//			StatisticsResponse res = statisticService.monthlyOrderStatistics();
-//			model.addAttribute("StatisticsResponse", res);
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", e.getMessage());
-//        }
-//		
-//		return "/period";
-//	}
-//	
-//	@PostMapping("/period/weekly")
-//	public String weeklyStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-//		try {
-//			StatisticsResponse res = statisticService.weeklyOrderStatistics();
-//			model.addAttribute("StatisticsResponse", res);
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", e.getMessage());
-//        }
-//		
-//		return "/period";
-//	}
-//	
-//	@PostMapping("/period/daily")
-//	public String dailyStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-//		try {
-//			StatisticsResponse res = statisticService.dailyOrderStatistics();
-//			model.addAttribute("StatisticsResponse", res);
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", e.getMessage());
-//        }
-//		
-//		return "/period";
-//	}
-//	
-//	@PostMapping("/product")
-//	public String productStatistic(@RequestParam(value = "agree", defaultValue = "false") Boolean agree, Model model) {
-//		try {
-//			List<StatisticsProductResponse> statisticsList = statisticProductService.getProductRankings();
-//			model.addAttribute("statisticsList", statisticsList);
-//        } catch (Exception e) {
-//            model.addAttribute("errorMessage", e.getMessage());
-//        }
-//		
-//		return "/product";
-//	}
+	@Autowired
+	StatisticPeriodService statisticPeriodService;
+	@Autowired
+	StatisticProductService statisticProductService;
+	
+	//View
+	@RequestMapping("/statistic")
+	public String showStatistic() {
+		return "statistic";
+	}
+	
+	//View
+	@RequestMapping("statistic/period")
+	public String period(Model model){
+		return "statistic/period";
+	}
+
+	//View
+	@RequestMapping("statistic/product")
+	public String product(Model model){
+		List<StatisticsProductResponse> statistics = statisticProductService.getProductRankings();
+		model.addAttribute("statistics", statistics);
+		return "statistic/product";
+	}
+	
+	//View
+	@RequestMapping("statistic/period/period")
+	public String showPeriod(Model model){
+		return "statistic/period/period";
+	}
+	
+	//기간별 분석
+	@PostMapping("statistic/period/period/{period}")
+	public String handlePeriod(@PathVariable String period, Model model) {
+		StatisticsResponse statistic;
+
+	    switch (period) {
+	        case "monthly":
+	        	statistic = statisticPeriodService.getMonthlyOrderStatistics();
+	            break;
+	        case "weekly":
+	        	statistic = statisticPeriodService.getWeeklyOrderStatistics();
+	            break;
+	        case "daily":
+	        	statistic = statisticPeriodService.getDailyOrderStatistics();
+	            break;
+	        default:
+	            return "redirect:/statistic/period/";
+	    }
+	    
+	    model.addAttribute("statistics", statistic);
+		return "redirect:/statistic/period/period";
+	}
 }

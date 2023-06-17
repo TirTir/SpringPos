@@ -8,7 +8,7 @@ import Service.OrderService;
 import Service.OrderedProductService;
 import Service.ProductService;
 import Service.StatisticProductService;
-import Service.StatisticService;
+import Service.StatisticPeriodService;
 import Service.UserAuthService;
 import dao.MemberDao;
 import dao.OrderDao;
@@ -72,8 +72,8 @@ public class JavaConfig {
 	}
 
 	@Bean
-	public StatisticService statisticService() {
-		return new StatisticService(orderDao());
+	public StatisticPeriodService statisticService() {
+		return new StatisticPeriodService(orderDao());
 	}
 	
 	@Bean
