@@ -32,7 +32,7 @@ public class OrderDao {
 					public PreparedStatement createPreparedStatement(Connection con) 
 						throws SQLException{
 						PreparedStatement pstmt= con.prepareStatement(
-								"insert into ORDERS (orderId, orderDateTime, totalPrice) values (?, ?, ?)",
+								"INSERT into ORDERS (orderId, orderDateTime, totalPrice) values (?, ?, ?)",
 								new String[] {"orderID"});
 						pstmt.setTimestamp(1, Timestamp.valueOf(order.getOrderDateTime()));
 						pstmt.setLong(2, order.getTotalPrice());
@@ -49,14 +49,14 @@ public class OrderDao {
 	}
 	
 	public Orders selectByOrderId(int orderId) { //주문 번호 조회
-		String sql = "select * from Orders where OrderId = ?";
+		String sql = "SELECT * FROM Orders WHERE OrderId = ?";
 		List<Orders> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapOrder(rs), orderId);
 
 		return result.isEmpty() ? null : result.get(0);
 	}
 	
 	public List<Orders> selectAllOrders() { //주문 전체 조회
-		String sql = "select * from Orders";
+		String sql = "SELECT * FROM Orders";
 		List<Orders> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapOrder(rs));
 
 		return result;

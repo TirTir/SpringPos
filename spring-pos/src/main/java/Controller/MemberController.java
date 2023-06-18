@@ -1,6 +1,10 @@
 package Controller;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,41 +15,56 @@ import com.example.demo.UserAuthRequest;
 import com.example.demo.UserRegisterRequest;
 
 import Service.UserAuthService;
+import dao.MemberDao;
 import dto.Member;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MemberController {
 	@Autowired
+	private MemberDao memberDao;
+	@Autowired
 	private UserAuthService userAuthService;	
 	
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String root() throws Exception {
 		return "redirect:login";
 	}
 	
+	@GetMapping("/setting")
+	public String setting(Model model) {
+		List<Member> users = memberDao.selectAllMembers();
+		model.addAttribute("users", users);
+		return "setting";
+	}
+	
 	@PostMapping("/login")
-	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, Model model) {
-		String page = "login";
+	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, HttpSession session, Model model) {
 		try {
 			Member member = userAuthService.login(req);
-			page = "main";
+			session.setAttribute("user", member);
 		} catch (Exception e) {
 			model.addAttribute("msg", e);
+			return ("login");
 		}		
-		return page;
+		return "/main";
 	}
 	
 	@GetMapping("/join")
-	public ModelAndView join(ModelAndView mav) {
-		mav.setViewName("join");
-		return mav;
+	public String join(Model model) {
+		return ("join");
 	}
 	
 	@PostMapping("/join")
-	public ModelAndView handleJoin(@RequestParam UserRegisterRequest req, ModelAndView mav) throws Exception {
+	public String handleJoin(@RequestParam UserRegisterRequest req, ModelAndView mav) throws Exception {
 		userAuthService.join(req);
-		mav.setViewName("login");
-		return mav;
+		return ("login");
 	}
+	
+	@PostMapping("/setting")
+	public String search(@RequestParam String userName, Model model) {
+		Member user = memberDao.selectByUserName(userName);
+		model.addAttribute("user", user);
+		return ("redirect:/main/setting");
+	}
+	
 }

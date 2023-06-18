@@ -27,7 +27,7 @@ public class OrderController {
 	private OrderedProductDao orderedProductDao;
 
 	//View
-	@RequestMapping("main/order")
+	@GetMapping("main/order")
 	public String order(Model model) {
 		int orderId = orderDao.getNextOrderId();
 		List<OrderedProduct> orders = orderedProductDao.selectByOrderId(orderId);

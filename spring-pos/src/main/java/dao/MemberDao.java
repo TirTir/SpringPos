@@ -29,7 +29,7 @@ public class MemberDao {
 					public PreparedStatement createPreparedStatement(Connection con) 
 						throws SQLException{
 						PreparedStatement pstmt= con.prepareStatement(
-								"insert into MEMBER (userName, userId, password, position) values (?, ?, ?, ?)",
+								"INSERT into MEMBER (userName, userId, password, position) values (?, ?, ?, ?)",
 								new String[] {"ID"});
 						pstmt.setString(1,  member.getUserName());
 						pstmt.setString(2,  member.getUserId());
@@ -40,20 +40,34 @@ public class MemberDao {
 					}, keyHolder);
 		}
 	
-	public Member selectByUserId(String userId) { //회원정보 검색
-		String sql = "select * from MEMBER where UserId = ?";
+	public Member selectByUserId(String userId) { //회원 아이디 검색
+		String sql = "SELECT * FROM MEMBER WHERE UserId = ?";
 		
 		List<Member> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapMember(rs), userId);
 		
 		return result.isEmpty() ? null : result.get(0);
 	}
 	
+	public Member selectByUserName(String userName) { //회원 이름 검색
+		String sql = "SELECT * FROM PRODUCT WHERE userName = ?";
+		
+		List<Member> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapMember(rs), userName);
+		
+		return result.isEmpty() ? null : result.get(0);
+	}
+	
 	public List<Member> selectAllMembers(){
-		String sql = "select * from  Member";
+		String sql = "SELECT * FROM  Member";
 		
 		List<Member> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapMember(rs));
 		
 		return result;
+	}
+	
+	public void deleteMember(int memberId) { //회원 삭제
+		String sql = "DELETE FROM Orders WHERE memberId = ?";
+		
+		jdbcTemplate.update(sql, memberId);
 	}
 	
 	private Member mapMember(ResultSet rs) throws SQLException {

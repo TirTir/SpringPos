@@ -21,19 +21,19 @@ public class StatisticsController {
 	StatisticProductService statisticProductService;
 	
 	//View
-	@RequestMapping("/statistic")
+	@GetMapping("/statistic")
 	public String showStatistic() {
 		return "statistic";
 	}
 	
 	//View
-	@RequestMapping("statistic/period")
+	@GetMapping("statistic/period")
 	public String period(Model model){
 		return "statistic/period";
 	}
 
 	//View
-	@RequestMapping("statistic/product")
+	@GetMapping("statistic/product")
 	public String product(Model model){
 		List<StatisticsProductResponse> statistics = statisticProductService.getProductRankings();
 		model.addAttribute("statistics", statistics);
@@ -41,7 +41,7 @@ public class StatisticsController {
 	}
 	
 	//View
-	@RequestMapping("statistic/period/period")
+	@GetMapping("statistic/period/period")
 	public String showPeriod(Model model){
 		return "statistic/period/period";
 	}

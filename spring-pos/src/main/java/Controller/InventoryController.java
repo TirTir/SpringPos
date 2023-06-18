@@ -49,7 +49,7 @@ public class InventoryController {
 	}
 	
 	//View
-	@RequestMapping("/main/inventory")
+	@GetMapping("/main/inventory")
 	public String inventory(Model model) {
 		List<Product> products = inventoryService.getAllProducts();
 		model.addAttribute(products);
