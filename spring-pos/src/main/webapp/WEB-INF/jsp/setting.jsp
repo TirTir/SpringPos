@@ -37,13 +37,13 @@
           >
             <table style="height: 100%; width: 100%">
               <th style="width: 5%">No</th>
-              <th style="width: 40%">유저 이름</th>
-              <th style="width: 15%">아이디</th>
-              <th style="width: 10%">직책</th>
+              <th style="width: 25%">유저 이름</th>
+              <th style="width: 20%">아이디</th>
+              <th style="width: 15%">직책</th>
               <c:forEach var="user" items="${users}" varStatus="status"></c:forEach>
-	          <tr class="click">
+	          <tr class="click" value="${user.userId}">
 	            <td>${status.index+1}</td>
-	            <td id="${user.userName}">${user.userName}</td>
+	            <td>${user.userName}</td>
 	            <td>${user.userId}</td>
 	            <td>${user.position}</td>
 	          </tr>
@@ -115,11 +115,11 @@
     <script>
 	  var userName;
 	  $(".click").bind("click", function () {
-	    var userName = $(this).closest("tr").prevAll().length;
+	    var userName = $(this).attr("value");
 	    console.log(userName);
 	  });
 	  function onDelete() {
-	    location.href = "./${user.userName}";
+	    location.href = "./${userName}";
 	  }
   </script>
   </body>

@@ -64,10 +64,10 @@ public class MemberDao {
 		return result;
 	}
 	
-	public void deleteMember(int memberId) { //회원 삭제
+	public void deleteMember(String userId) { //회원 삭제
 		String sql = "DELETE FROM Orders WHERE memberId = ?";
 		
-		jdbcTemplate.update(sql, memberId);
+		jdbcTemplate.update(sql, userId);
 	}
 	
 	private Member mapMember(ResultSet rs) throws SQLException {

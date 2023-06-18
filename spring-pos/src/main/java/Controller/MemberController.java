@@ -25,19 +25,12 @@ public class MemberController {
 	@Autowired
 	private UserAuthService userAuthService;	
 	
-	@GetMapping("/")
-	public String root() throws Exception {
-		return "redirect:login";
-	}
+	@GetMapping( {"/", "/login"} )
+	public String login() throws Exception {
+		  return "login";
+		}
 	
-	@GetMapping("/setting")
-	public String setting(Model model) {
-		List<Member> users = memberDao.selectAllMembers();
-		model.addAttribute("users", users);
-		return "setting";
-	}
-	
-	@PostMapping("/login")
+	@PostMapping("login")
 	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, HttpSession session, Model model) {
 		try {
 			Member member = userAuthService.login(req);
@@ -60,6 +53,13 @@ public class MemberController {
 		return ("login");
 	}
 	
+	@GetMapping("/setting")
+	public String setting(Model model) {
+		List<Member> users = memberDao.selectAllMembers();
+		model.addAttribute("users", users);
+		return "setting";
+	}
+	
 	@PostMapping("/setting")
 	public String search(@RequestParam String userName, Model model) {
 		Member user = memberDao.selectByUserName(userName);
@@ -67,4 +67,9 @@ public class MemberController {
 		return ("redirect:/main/setting");
 	}
 	
+	@GetMapping("/setting/{userName}")
+	public String setting(@PathVariable String userId, Model model) {
+		memberDao.deleteMember(userId);
+		return "redirect:/setting";
+	}
 }
