@@ -1,4 +1,4 @@
-package dao;
+package com.example.demo.dao;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import dto.Product;
+import com.example.demo.dto.Product;
 
 public class ProductDao {
 	private JdbcTemplate jdbcTemplate;

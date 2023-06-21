@@ -1,4 +1,4 @@
-package dao;
+package com.example.demo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import dto.Member;
+import com.example.demo.dto.Member;
 
 public class MemberDao {
 	private JdbcTemplate jdbcTemplate;
@@ -34,7 +34,7 @@ public class MemberDao {
 						pstmt.setString(1,  member.getUserName());
 						pstmt.setString(2,  member.getUserId());
 						pstmt.setString(3,  member.getPassword());
-						pstmt.setString(3,  member.getPosition());
+						pstmt.setString(4,  member.getPosition());
 						return pstmt;
 						}
 					}, keyHolder);
@@ -49,7 +49,7 @@ public class MemberDao {
 	}
 	
 	public Member selectByUserName(String userName) { //회원 이름 검색
-		String sql = "SELECT * FROM PRODUCT WHERE userName = ?";
+		String sql = "SELECT * FROM MEMBER WHERE userName = ?";
 		
 		List<Member> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapMember(rs), userName);
 		
@@ -65,7 +65,7 @@ public class MemberDao {
 	}
 	
 	public void deleteMember(String userId) { //회원 삭제
-		String sql = "DELETE FROM Orders WHERE memberId = ?";
+		String sql = "DELETE FROM MEMBER WHERE memberId = ?";
 		
 		jdbcTemplate.update(sql, userId);
 	}

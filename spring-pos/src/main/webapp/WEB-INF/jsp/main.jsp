@@ -10,19 +10,21 @@
     <title>main</title>
   </head>
   <body style="margin: 0">
-  	<jsp:include page="menu.jsp" />
       <div
-        style="display: flex; flex-direction: row; height: 100%; width: 100%"
+        style="display: flex; flex-direction: column; height: 100vh; width: 100vw"
       >
+    	<jsp:include page="menu.jsp" />
+    	<div style="display: flex; flex-direction: row; height: 100%; width: 100%;">
         <div class="sidebar" style="height: 100%">
         	<jsp:include page="sidemenu.jsp" />
         </div>
-        <div class="content">
+        <div class="content" style="height: 100%; width: 100%">
 	    	<div
 	        style="
 	          display: flex;
 	          justify-content: center;
 	          align-items: center;
+	          height: 100%;
 	          width: 100%;
 	        "
 	      >
@@ -35,5 +37,19 @@
         </div>
       </div>
     </div>
+    <script>
+    saveUserData();
+    function saveUserData() {
+    	var user = localStorage.getItem("user");
+    	if(user === "") {
+            var user = {
+            	userName: "${user.userName}",
+                userId: "${user.userId}",
+                userPosition: "${user.position}",
+              };
+            localStorage.setItem('user', JSON.stringify(user));
+    	}
+      }
+    </script>
   </body>
 </html>

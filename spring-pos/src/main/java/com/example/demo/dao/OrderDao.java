@@ -1,4 +1,4 @@
-package dao;
+package com.example.demo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import dto.Orders;
+import com.example.demo.dto.Orders;
 
 public class OrderDao {
 	private JdbcTemplate jdbcTemplate;
@@ -49,21 +49,21 @@ public class OrderDao {
 	}
 	
 	public Orders selectByOrderId(int orderId) { //주문 번호 조회
-		String sql = "SELECT * FROM Orders WHERE OrderId = ?";
+		String sql = "SELECT * FROM ORDERS WHERE OrderId = ?";
 		List<Orders> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapOrder(rs), orderId);
 
 		return result.isEmpty() ? null : result.get(0);
 	}
 	
 	public List<Orders> selectAllOrders() { //주문 전체 조회
-		String sql = "SELECT * FROM Orders";
+		String sql = "SELECT * FROM ORDERS";
 		List<Orders> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapOrder(rs));
 
 		return result;
 	}
 
 	public List<Orders> selectByOrderDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
-		String sql = "SELECT * FROM Orders WHERE orderDateTime >= ? AND orderDateTime <= ?";
+		String sql = "SELECT * FROM ORDERS WHERE orderDateTime >= ? AND orderDateTime <= ?";
 	    Timestamp startTimestamp = Timestamp.valueOf(startDateTime);
 	    Timestamp endTimestamp = Timestamp.valueOf(endDateTime);
 
@@ -73,7 +73,7 @@ public class OrderDao {
 	}
 	
 	public void deleteOrder(int orderId) { //주문 번호 삭제
-		String sql = "DELETE FROM Orders WHERE orderId = ?";
+		String sql = "DELETE FROM ORDERS WHERE orderId = ?";
 		
 		jdbcTemplate.update(sql, orderId);
 	}

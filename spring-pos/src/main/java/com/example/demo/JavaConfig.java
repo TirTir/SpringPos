@@ -3,17 +3,10 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import Service.InventoryService;
-import Service.OrderService;
-import Service.OrderedProductService;
-import Service.ProductService;
-import Service.StatisticProductService;
-import Service.StatisticPeriodService;
-import Service.UserAuthService;
-import dao.MemberDao;
-import dao.OrderDao;
-import dao.OrderedProductDao;
-import dao.ProductDao;
+import com.example.demo.dao.MemberDao;
+import com.example.demo.dao.OrderDao;
+import com.example.demo.dao.OrderedProductDao;
+import com.example.demo.dao.ProductDao;
 
 @Configuration //Spring 설정 클래스
 public class JavaConfig {
@@ -37,18 +30,8 @@ public class JavaConfig {
 	}
 	
 	@Bean
-    public UserAuthService userAuthService() { 
-		 return new UserAuthService(memberDao());
-	}
-	
-	@Bean
 	public ProductDao productDao() {
 		return new ProductDao(dataSource());
-	}
-	
-	@Bean
-    public ProductService productService() { 
-		 return new ProductService(productDao());
 	}
 	
 	@Bean
@@ -57,32 +40,7 @@ public class JavaConfig {
 	}
 	
 	@Bean
-    public OrderService orderService() { 
-		 return new OrderService(productDao(), orderDao(), orderedProductDao());
-	}
-	
-	@Bean
 	public OrderedProductDao orderedProductDao() {
 		return new OrderedProductDao(dataSource());
-	}
-	
-	@Bean
-    public OrderedProductService orderedProductService() { 
-		 return new OrderedProductService(productDao(), orderDao(), orderedProductDao());
-	}
-
-	@Bean
-	public StatisticPeriodService statisticService() {
-		return new StatisticPeriodService(orderDao());
-	}
-	
-	@Bean
-    public StatisticProductService statisticProductService() { 
-		 return new StatisticProductService(orderDao(), productDao(), orderedProductDao());
-	}
-	
-	@Bean
-    public InventoryService inventoryService() { 
-		 return new InventoryService(productDao());
 	}
 }

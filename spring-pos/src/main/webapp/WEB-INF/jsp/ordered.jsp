@@ -6,16 +6,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel ="stylesheet" href ="/css/table.Styled.css" />
     <title>ordered</title>
   </head>
   <body style="margin: 0">
-    <jsp:include page="menu.jsp" />
-    <div style="display: flex; flex-direction: row; height: 100%; width: 100%">
-      <div class="sidebar" style="height: 100%">
-        <jsp:include page="sidemenu.jsp" />
-      </div>
-      <div class="content">
+  <div
+    style="display: flex; flex-direction: column; height: 100vh; width: 100vw"
+  >
+	<jsp:include page="menu.jsp" />
+	<div style="display: flex; flex-direction: row; height: 100%; width: 100%;">
+    <div class="sidebar" style="height: 100%">
+    	<jsp:include page="sidemenu.jsp" />
+    </div>
+      <div class="content" style="height: 100%; width: 100%">
         <div
           style="
             display: flex;
@@ -39,17 +42,14 @@
               <th style="width: 15%">주문번호</th>
               <th style="width: 40%">거래 시간</th>
               <th style="width: 20%">금액</th>
-              <c:forEach
-                var="order"
-                items="${orders}"
-                varStatus="status"
-              ></c:forEach>
-              <tr>
-                <td id="${order.orderId}" value="${order}">${order.orderId}</td>
+              <c:forEach var="order" items="${orders}">
+              <tr name="order" onClick="setNum(this)" style="cursor: pointer">
+                <td>${order.orderId}</td>
                 <td>${order.orderDateTime}</td>
                 <td>${order.totalPrice}</td>
               </tr>
-            </table>
+	          </c:forEach>
+	          </table>
           </div>
           <div
             style="
@@ -63,7 +63,7 @@
             "
           >
             <form
-              action="main/inventory/ordered/search"
+              action="/ordered/search"
               method="post"
               style="display: flex; flex-direction: column; margin: 20px"
             >
@@ -114,8 +114,7 @@
                 "
               >
                 <div style="padding: 10px">받은 금액 :</div>
-                <div
-                  id="price"
+                <div id="totalPrice
                   style="
                     display: flex;
                     align-items: center;
@@ -123,12 +122,12 @@
                     margin: 10px;
                   "
                 >
-                  원
+                  0 원
                 </div>
               </div>
               <button
                 type="button"
-                onclick="location.href='../inventory/oredred'"
+                onclick="onDelete()"
                 style="
                   height: 50px;
                   width: 300px;
@@ -146,7 +145,7 @@
                 환불</button
               ><button
                 type="button"
-                onclick="onDelete()"
+                onclick="location.href='./order'"
                 style="
                   height: 50px;
                   width: 300px;
@@ -169,15 +168,20 @@
       </div>
     </div>
     <script>
-      var trNum = 0;
-      var price = 0;
-      $(".click").bind("click", function () {
-        var trNum = $(this).closest("tr").prevAll().length;
-        price = document.getElementById("price") + "원";
-        price.innerHTML = price;
-      });
+      var orderId = 0;
+      var totalPrice = 0;
+      
+      function setNum(row) {
+    	  orderId = row.querySelector('td:first-child').innerText;
+    	  totalPrice = parseFloat(row.querySelector('td:nth-child(3)').innerText);
+    	  
+    	  document.getElementById('totalPrice').innerText = totalPrice + '원';
+      }
+
       function onDelete() {
-        location.href = "./delete/${trNum}";
+    	  if (orderId !== 0) {
+    	      location.href = "./delete/" + orderId;
+    	  }
       }
     </script>
   </body>

@@ -1,22 +1,21 @@
-package Controller;
+package com.example.demo.controller;
 
 
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.UserAuthRequest;
 import com.example.demo.UserRegisterRequest;
+import com.example.demo.dao.MemberDao;
+import com.example.demo.service.UserAuthService;
 
-import Service.UserAuthService;
-import dao.MemberDao;
-import dto.Member;
+
+
+import com.example.demo.dto.Member;
 
 @Controller
 public class MemberController {
@@ -25,30 +24,36 @@ public class MemberController {
 	@Autowired
 	private UserAuthService userAuthService;	
 	
-	@GetMapping( {"/", "/login"} )
-	public String login() throws Exception {
-		  return "login";
+	@GetMapping( {"/","/login"} )
+	public String login(){
+		return "login";
 		}
 	
-	@PostMapping("login")
-	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, HttpSession session, Model model) {
+	@PostMapping("/login")
+	public String handleLogin(@ModelAttribute("userAuthRequest") UserAuthRequest req, Model model) {
+		Member user;
 		try {
-			Member member = userAuthService.login(req);
-			session.setAttribute("user", member);
+			user = userAuthService.login(req);
 		} catch (Exception e) {
-			model.addAttribute("msg", e);
-			return ("login");
+			model.addAttribute("message", e);
+			return ("redirect:/login");
 		}		
-		return "/main";
+		model.addAttribute("user", user);
+		return "main";
+	}
+	
+	@GetMapping("/logout")
+	public String join() {
+		return ("redirect:/login");
 	}
 	
 	@GetMapping("/join")
 	public String join(Model model) {
-		return ("join");
+		return ("/join");
 	}
 	
 	@PostMapping("/join")
-	public String handleJoin(@RequestParam UserRegisterRequest req, ModelAndView mav) throws Exception {
+	public String handleJoin(@ModelAttribute("userRegisterRequest") UserRegisterRequest req, Model model) {
 		userAuthService.join(req);
 		return ("login");
 	}
@@ -64,12 +69,12 @@ public class MemberController {
 	public String search(@RequestParam String userName, Model model) {
 		Member user = memberDao.selectByUserName(userName);
 		model.addAttribute("user", user);
-		return ("redirect:/main/setting");
+		return ("setting");
 	}
 	
-	@GetMapping("/setting/{userName}")
+	@GetMapping("/setting/delete/{userId}")
 	public String setting(@PathVariable String userId, Model model) {
 		memberDao.deleteMember(userId);
-		return "redirect:/setting";
+		return "setting";
 	}
 }

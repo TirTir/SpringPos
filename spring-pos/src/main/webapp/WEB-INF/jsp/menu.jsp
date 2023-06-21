@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>menu</title>
   </head>
   <body>
@@ -19,14 +18,17 @@
         height: 72px;
       "
     >
-      <div style="color: white; font-size: 30px; margin: 10px 24px">POS</div>
+      <div 
+      	style="color: white; font-size: 30px; margin: 10px 24px; cursor: pointer;"
+        onClick="location.href='/main'"
+      >POS</div>
       <div style="display: flex; flex-direction: row; align-items: center">
-        <div style="color: white; margin: 10px">관리자님 환영합니다.</div>
+        <div style="color: white; margin: 10px">${user.userName}님 환영합니다.</div>
         <button
           type="button"
           name="logout"
           id="logout"
-          onClick="location.href='/logout'"
+          onClick="onLogout()"
           style="
             margin: 10px 24px;
             width: 100px;
@@ -40,5 +42,13 @@
         </button>
       </div>
     </div>
+    <script>
+    	var user = JSON.parse(localStorage.getItem("user")); //객체로 변환
+    	
+    	function onLogout() {
+    		localStorage.removeItem("user");
+    		location.href='/logout';
+    	}
+    </script>
   </body>
 </html>

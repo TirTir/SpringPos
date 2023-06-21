@@ -1,4 +1,4 @@
-package Controller;
+package com.example.demo.controller;
 
 import java.util.List;
 
@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.StatisticsProductResponse;
 import com.example.demo.StatisticsResponse;
-
-import Service.StatisticPeriodService;
-import Service.StatisticProductService;
+import com.example.demo.service.StatisticPeriodService;
+import com.example.demo.service.StatisticProductService;
 
 @Controller
 public class StatisticsController {
@@ -22,34 +21,20 @@ public class StatisticsController {
 	
 	//View
 	@GetMapping("/statistic")
-	public String showStatistic() {
+	public String showStatistic(Model model) {
 		return "statistic";
 	}
 	
-	//View
-	@GetMapping("statistic/period")
+	//Period View
+	@GetMapping("/period")
 	public String period(Model model){
-		return "statistic/period";
+		return "period";
 	}
 
-	//View
-	@GetMapping("statistic/product")
-	public String product(Model model){
-		List<StatisticsProductResponse> statistics = statisticProductService.getProductRankings();
-		model.addAttribute("statistics", statistics);
-		return "statistic/product";
-	}
-	
-	//View
-	@GetMapping("statistic/period/period")
-	public String showPeriod(Model model){
-		return "statistic/period/period";
-	}
-	
 	//기간별 분석
-	@PostMapping("statistic/period/period/{period}")
+	@GetMapping("/periodStats/{period}")
 	public String handlePeriod(@PathVariable String period, Model model) {
-		StatisticsResponse statistic;
+		List<StatisticsResponse> statistic;
 
 	    switch (period) {
 	        case "monthly":
@@ -62,10 +47,17 @@ public class StatisticsController {
 	        	statistic = statisticPeriodService.getDailyOrderStatistics();
 	            break;
 	        default:
-	            return "redirect:/statistic/period/";
+	            return "periodStats";
 	    }
-	    
 	    model.addAttribute("statistics", statistic);
-		return "redirect:/statistic/period/period";
+		return "periodStats";
+	}
+
+	//Product View
+	@GetMapping("/product")
+	public String product(Model model){
+		List<StatisticsProductResponse> statistics = statisticProductService.getProductRankings();
+		model.addAttribute("statistics", statistics);
+		return "product";
 	}
 }

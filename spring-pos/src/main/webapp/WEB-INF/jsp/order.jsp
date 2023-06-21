@@ -6,16 +6,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>order</title>
+    <link rel ="stylesheet" href ="/css/table.Styled.css" />
+    <title>inventory</title>
   </head>
   <body style="margin: 0">
-    <jsp:include page="menu.jsp" />
-    <div style="display: flex; flex-direction: row; height: 100%; width: 100%">
-      <div class="sidebar" style="height: 100%">
-        <jsp:include page="sidemenu.jsp" />
-      </div>
-      <div class="content">
+  <div
+    style="display: flex; flex-direction: column; height: 100vh; width: 100vw"
+  >
+	<jsp:include page="menu.jsp" />
+	<div style="display: flex; flex-direction: row; height: 100%; width: 100%;">
+    <div class="sidebar" style="height: 100%">
+    	<jsp:include page="sidemenu.jsp" />
+    </div>
+      <div class="content" style="height: 100%; width: 100%">
         <div
           style="
             display: flex;
@@ -41,18 +44,15 @@
               <th style="width: 15%">단가</th>
               <th style="width: 10%">수량</th>
               <th style="width: 10%">비고</th>
-              <c:forEach
-                var="order"
-                items="${orders}"
-                varStatus="status"
-              ></c:forEach>
-              <tr class="click">
+              <c:forEach var="order" items="${orders}" varStatus="status">
+              <tr name="order" onClick="setNum(this)" style="cursor: pointer">
                 <td>${status.index+1}</td>
-                <td id="${status.index+1}">${order.productName}</td>
+                <td>${order.productName}</td>
                 <td>${order.price}</td>
                 <td>${order.quantity}</td>
                 <td></td>
               </tr>
+              </c:forEach>
             </table>
           </div>
           <div
@@ -67,14 +67,14 @@
             "
           >
             <form
-              action="main/order"
+              action="/order"
               method="post"
               style="display: flex; flex-direction: column"
             >
               <input
                 type="text"
                 name="productName"
-                value="${OrderedRequest.productName}"
+                value="${orderedRequest.productName}"
                 placeholder="상품명"
                 style="
                   height: 30px;
@@ -88,7 +88,7 @@
               /><input
                 type="text"
                 name="count"
-                value="${OrderedRequest.count}"
+                value="${orderedRequest.count}"
                 placeholder="수량"
                 style="
                   height: 30px;
@@ -130,7 +130,7 @@
               <div>
                 <button
                   type="submit"
-                  value="${OrderedRequest}"
+                  value="orderedRequest"
                   style="
                     height: 50px;
                     width: 150px;
@@ -187,7 +187,8 @@
               </button>
               <button
                 type="button"
-                onclick="location.href='../inventory/orered'"
+                value="ordered"
+                onClick="location.href='./ordered'"
                 style="
                   height: 50px;
                   width: 300px;
@@ -205,19 +206,28 @@
                 판매 내역
               </button>
             </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
     <script>
-      var trNum = 0;
-      $(".click").bind("click", function () {
-        var trNum = $(this).closest("tr").prevAll().length;
-        console.log(trNum);
-      });
-      function onCancel() {
-        location.href = "./cancel/${trNum}";
-      }
+    
+	    var num = 0;
+	    function setNum(row) {
+	  	  num = row.querySelector('td:first-child').innerText;
+	    }
+
+	    function onCancel() {
+	        location.href = "./cancel/" + num;
+	      }
+	    
+	    function handleLoginFailure() {
+	    	 var message = "${message}";
+	         if (message && message !== "") {
+	             alert(message);
+	         }
+	    }
     </script>
   </body>
 </html>

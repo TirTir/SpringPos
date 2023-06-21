@@ -1,4 +1,4 @@
-package dao;
+package com.example.demo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +13,8 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import Service.OrderService;
-import dto.OrderedProduct;
+import com.example.demo.dto.OrderedProduct;
+import com.example.demo.service.OrderService;
 
 public class OrderedProductDao {
 	private JdbcTemplate jdbcTemplate;
@@ -48,28 +48,28 @@ public class OrderedProductDao {
 	}
 	
 	public List<OrderedProduct> selectByOrderId(int orderId) { //주문 상세 정보 조회
-		String sql = "SELECT * FROM OrderedProduct WHERE orderId = ?";
+		String sql = "SELECT * FROM ORDEREDPRODUCT WHERE orderId = ?";
 	    List<OrderedProduct> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapProduct(rs), orderId);
 	    
 	    return result.isEmpty() ? null : result;
 	}
 	
 	public OrderedProduct selectByProductId(int orderId, int productId) { //주문 상세 정보 조회
-		String sql = "SELECT * FROM OrderedProduct WHERE orderId = ? AND productId = ?";
+		String sql = "SELECT * FROM ORDEREDPRODUCT WHERE orderId = ? AND productId = ?";
 	    List<OrderedProduct> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapProduct(rs), orderId, productId);
 	    
 	    return result.isEmpty() ? null : result.get(0);
 	}
 	
 	public OrderedProduct selectByNumber(int number) { //주문 상세 정보 조회
-		String sql = "SELECT * FROM OrderedProduct WHERE number = ?";
+		String sql = "SELECT * FROM ORDEREDPRODUCT WHERE number = ?";
 	    List<OrderedProduct> result = jdbcTemplate.query(sql, (rs, rowNum) -> mapProduct(rs), number);
 	    
 	    return result.isEmpty() ? null : result.get(0);
 	}
 	
 	public void deleteOrderedProduct(int number) {
-	    String sql = "DELETE FROM PRODUCT WHERE number = ?";
+	    String sql = "DELETE FROM ORDEREDPRODUCT WHERE number = ?";
 	    
 	    jdbcTemplate.update(sql, number);
 	}

@@ -1,4 +1,4 @@
-package Service;
+package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.StatisticsProductResponse;
 
-import dao.OrderDao;
-import dao.OrderedProductDao;
-import dao.ProductDao;
-import dto.OrderedProduct;
-import dto.Orders;
-import dto.Product;
+import com.example.demo.dao.OrderDao;
+import com.example.demo.dao.OrderedProductDao;
+import com.example.demo.dao.ProductDao;
+import com.example.demo.dto.OrderedProduct;
+import com.example.demo.dto.Orders;
+import com.example.demo.dto.Product;
 
 @Service
 public class StatisticProductService {
@@ -31,10 +31,10 @@ public class StatisticProductService {
 
 	public List<StatisticsProductResponse> getProductRankings() {
 		List<StatisticsProductResponse> rankings = new ArrayList<>();
-
-	    List<Orders> orders = orderDao.selectAllOrders();
 	    Map<Integer, Integer> productCountMap = new HashMap<>();
 
+	    List<Orders> orders = orderDao.selectAllOrders();
+	    
 	    for (Orders order : orders) {
 	        List<OrderedProduct> orderedProducts = orderedProductDao.selectByOrderId(order.getOrderId());
 	        for (OrderedProduct orderedProduct : orderedProducts) {
@@ -60,7 +60,6 @@ public class StatisticProductService {
 	        }
 	    }
 
-	    // Sort the rankings based on the total quantity in descending order
 	    rankings.sort(Comparator.comparingInt(StatisticsProductResponse::getCount).reversed());
 
 	    return rankings;

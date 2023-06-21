@@ -93,7 +93,7 @@
               margin: 5px;
               border-radius: 5px;
             "
-          >
+              >
             로그인</button
           ><button type="button"
             onclick="location.href='/join'"
@@ -113,6 +113,14 @@
         </form>
       </div>
     </div>
+    <script>
+    function handleLoginFailure() {
+    	 var message = "${message}";
+         if (message && message !== "") {
+             alert(message);
+         }
+    }
+  </script>
   </body>
 </html>
 

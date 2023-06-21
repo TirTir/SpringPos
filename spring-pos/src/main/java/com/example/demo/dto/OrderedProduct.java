@@ -1,4 +1,4 @@
-package dto;
+package com.example.demo.dto;
 
 public class OrderedProduct {
 	private int number;

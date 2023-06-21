@@ -6,7 +6,6 @@ public class ProductRegisterRequest {
 	private String productName; //상품명
 	private long price; //가격
 	private int totalCount; //재고
-	private LocalDateTime storeDateTime; //입고 날짜
 	
 	public String getProductName() {
 		return productName;
@@ -25,11 +24,5 @@ public class ProductRegisterRequest {
 	}
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
-	}
-	public LocalDateTime getStoreDateTime() {
-		return storeDateTime;
-	}
-	public void setStoreDateTime(LocalDateTime storeDateTime) {
-		this.storeDateTime = storeDateTime;
 	}
 }

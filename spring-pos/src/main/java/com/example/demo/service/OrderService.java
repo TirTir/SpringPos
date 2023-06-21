@@ -1,4 +1,4 @@
-package Service;
+package com.example.demo.service;
 
 import java.time.LocalDate;
 
@@ -7,18 +7,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import dao.OrderDao;
-import dao.OrderedProductDao;
-import dao.ProductDao;
-import dto.OrderedProduct;
-import dto.Orders;
+import com.example.demo.dao.OrderDao;
+import com.example.demo.dao.OrderedProductDao;
+import com.example.demo.dao.ProductDao;
+import com.example.demo.dto.OrderedProduct;
+import com.example.demo.dto.Orders;
 
 @Service
 public class OrderService { 
 	private ProductDao productDao;
     private OrderDao orderDao;
     private OrderedProductDao orderedProductDao;
-	private OrderService orderService;
 	
 	public OrderService(ProductDao productDao, OrderDao orderDao, OrderedProductDao orderedProductDao) {
         this.productDao = productDao;
@@ -34,7 +33,7 @@ public class OrderService {
 		if (order != null) //주문 정보 존재 여부
 			throw new Exception("Order Existence Exception");
 		
-		Orders newOrder = new Orders(orderDateTime, orderService.calculateTotalPrice(orderId));
+		Orders newOrder = new Orders(orderDateTime, calculateTotalPrice(orderId));
 		orderDao.insert(newOrder); 
 		update(orderId);
 	}

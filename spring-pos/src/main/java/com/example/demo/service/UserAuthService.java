@@ -1,4 +1,4 @@
-package Service;
+package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.UserAuthRequest;
 import com.example.demo.UserRegisterRequest;
 
-import dao.MemberDao;
-import dto.Member;
+import com.example.demo.dao.MemberDao;
+import com.example.demo.dto.Member;
 
 @Service
 public class UserAuthService {
@@ -27,13 +27,8 @@ public class UserAuthService {
         }
 	}
 	
-	public void join(UserRegisterRequest req) throws Exception{
+	public void join(UserRegisterRequest req){
 		Member member = new Member(req.getUserName(), req.getUserId(), req.getPassword(), "직원");
 		memberDao.insert(member);
-		return;
-	}
-	
-	public void logout() {
-		
 	}
 }

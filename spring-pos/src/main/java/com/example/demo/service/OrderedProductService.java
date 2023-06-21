@@ -1,14 +1,13 @@
-package Service;
+package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
 import com.example.demo.OrderedRequest;
-
-import dao.OrderDao;
-import dao.OrderedProductDao;
-import dao.ProductDao;
-import dto.OrderedProduct;
-import dto.Product;
+import com.example.demo.dao.OrderDao;
+import com.example.demo.dao.OrderedProductDao;
+import com.example.demo.dao.ProductDao;
+import com.example.demo.dto.OrderedProduct;
+import com.example.demo.dto.Product;
 
 @Service
 public class OrderedProductService {
@@ -46,7 +45,7 @@ public class OrderedProductService {
 	public void cancel(int number) throws Exception { //반품 기능 구현
 		OrderedProduct order = orderedProductDao.selectByNumber(number);
 		if(order != null)
-			throw new Exception("Ordered Existence Exception");
+			throw new Exception("상품이 존재하지 않거나 재고가 부족합니다.");
 		orderedProductDao.deleteOrderedProduct(number);
 	}
 }
